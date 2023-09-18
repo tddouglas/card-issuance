@@ -8,8 +8,10 @@ Hackathon 23 Project - Easy Card Issuance of Adyen cards for internal employees
 | Recruiting | US      | 50                  | USD                  | 10                  | USD                          | US                | All           |
 
 ## Project Structure
+```
 ├── Card Issuance
 │   ├── client
 │   │   ├── Vue/Typescript
 │   ├── server
 │   │   ├── Python/FastAPI
+```
