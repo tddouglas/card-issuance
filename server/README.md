@@ -47,5 +47,6 @@ black source/file/or/directory
 ### Run the server
 More details are in the [docs](https://fastapi.tiangolo.com/tutorial/first-steps/)
 ```sh
-uvicorn main:app --reload
+cd server
+uvicorn app:app --reload
 ```
