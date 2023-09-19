@@ -10,8 +10,8 @@ def order_status(order_id):
 
 
 @router.get("/existingCardOrder/{order_id}")
-def get_order_status(segment_creation_id: str):
+def get_order_status(order_id: str):
     return JSONResponse(
         status_code=200,
-        content=order_status(segment_creation_id),
+        content=order_status(order_id),
     )
