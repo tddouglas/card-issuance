@@ -15,3 +15,6 @@ Hackathon 23 Project - Easy Card Issuance of Adyen cards for internal employees
 │   ├── server
 │   │   ├── Python/FastAPI
 ```
+
+## Workflow
+![](Hackathon-Workflow.png)
