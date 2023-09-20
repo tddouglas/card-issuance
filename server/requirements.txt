@@ -1,3 +1,4 @@
 fastapi[all]
 black
 sqlalchemy
+psycopg2
