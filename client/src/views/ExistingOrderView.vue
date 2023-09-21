@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import {defineComponent} from "vue"
-import ExistingOrdersGrid from "@/components/ExistingOrdersGrid.vue";
+import ExistingOrdersGrid from "@/components/existingOrder/ExistingOrdersGrid.vue";
 import type CardOrderItem from "@/types/cardOrderItem";
 
 export default defineComponent({

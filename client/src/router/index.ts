@@ -15,9 +15,24 @@ const router = createRouter({
             component: () => import('../views/NewOrderView.vue')
         },
         {
+            path: '/newCardOrderDetails',
+            name: 'newCardOrderDetails',
+            component: () => import('../views/NewOrderDetailsView.vue')
+        },
+        {
+            path: '/orderSubmissionResult',
+            name: 'orderSubmissionResult',
+            component: () => import('../views/OrderSubmissionResultView.vue')
+        },
+        {
             path: '/existingCardOrder',
             name: 'existingCardOrder',
             component: () => import('../views/ExistingOrderView.vue')
+        },
+        {
+            path: '/requestNewLimits',
+            name: 'requestNewLimits',
+            component: () => import('../views/RequestNewLimitsView.vue')
         }
 
     ]
