@@ -9,13 +9,24 @@ export const newCardOrderStore = defineStore('newCardOrder', {
 			eventStartDate: '',
 			eventEndDate: '',
 			selectedImage: '',
-			selectedAddress: ''
+			selectedAddress: '',
 		}
 	},
 	getters: {
+		isCountrySet(): boolean {
+			return this.selectedCountry != ''
+		},
 		isMainOrderSet(): boolean {
-			const x = this.selectedCountry != '' && this.selectedOrderType != ''
-			return x
+			return this.selectedCountry != '' && this.selectedOrderType != ''
+		},
+		isOrderEventDetailsValid(): boolean {
+			return (
+				this.numberOfCards > 0 &&
+				this.eventStartDate.length > 0 &&
+				this.eventEndDate.length > 0 &&
+				this.selectedImage.length > 0 &&
+				this.selectedAddress.length > 0
+			)
 		},
 	},
 	actions: {

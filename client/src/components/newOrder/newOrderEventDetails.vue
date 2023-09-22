@@ -20,7 +20,7 @@
 	</div>
 	<new-order-card-art-selection></new-order-card-art-selection>
 	<new-order-shipping-address-selection></new-order-shipping-address-selection>
-	<div v-if="orderEventDetailsValid()" class="mt-8">
+	<div v-if="newCardOrderStore.isOrderEventDetailsValid" class="mt-8">
 		<the-button
 			reference="submitButton"
 			:focus="focusSubmit"
@@ -53,15 +53,6 @@ export default defineComponent({
 		...mapStores(newCardOrderStore),
 	},
 	methods: {
-		orderEventDetailsValid(): boolean {
-			return (
-				this.newCardOrderStore.numberOfCards > 0 &&
-				this.newCardOrderStore.eventStartDate.length > 0 &&
-				this.newCardOrderStore.eventEndDate.length > 0 &&
-				this.newCardOrderStore.selectedImage.length > 0 &&
-				this.newCardOrderStore.selectedAddress.length > 0
-			)
-		},
 		setNumberOfCards(numberOfCards: number) {
 			this.newCardOrderStore.numberOfCards = numberOfCards
 		},

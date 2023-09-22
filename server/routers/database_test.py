@@ -1,9 +1,6 @@
 from typing import List
-
 from fastapi import APIRouter, Depends, HTTPException
-
 from sqlalchemy.orm import Session
-
 from .database import SessionLocal, engine
 from . import models, schemas, crud
 
@@ -43,7 +40,7 @@ def read_order(order_id: int, db: Session = Depends(get_db)):
 
 @router.post("/orders/{order_id}/cards/", response_model=schemas.Card)
 def create_card_for_order(
-    order_id: int, card: schemas.CardCreate, db: Session = Depends(get_db)
+        order_id: int, card: schemas.CardCreate, db: Session = Depends(get_db)
 ):
     return crud.create_card(db=db, card=card, order_id=order_id)
 
@@ -66,7 +63,7 @@ def read_card(card_id: int, db: Session = Depends(get_db)):
 
 @router.post("/logos/", response_model=schemas.Logo)
 def create_card_for_order(
-    logo: schemas.LogoCreate, db: Session = Depends(get_db)
+        logo: schemas.LogoCreate, db: Session = Depends(get_db)
 ):
     return crud.create_logo(db=db, logo=logo)
 
@@ -89,14 +86,14 @@ def read_logos(db: Session = Depends(get_db)):
 
 @router.post("/usecases/", response_model=schemas.Usecase)
 def create_usecase(
-    usecase: schemas.UsecaseCreate, db: Session = Depends(get_db)
+        usecase: schemas.UsecaseCreate, db: Session = Depends(get_db)
 ):
     return crud.create_usecase(db=db, usecase=usecase)
 
 
 @router.get("/usecases/{usecase_id}", response_model=schemas.Usecase)
 def read_usecase(usecase_id: int, db: Session = Depends(get_db)):
-    db_usecase= crud.get_usecase(db, usecase_id=usecase_id)
+    db_usecase = crud.get_usecase(db, usecase_id=usecase_id)
     if db_usecase is None:
         raise HTTPException(status_code=404, detail="Usecase not found")
     return db_usecase
@@ -108,4 +105,3 @@ def read_usecases(db: Session = Depends(get_db)):
     if db_usecases is None:
         raise HTTPException(status_code=404, detail="Usecases not found")
     return db_usecases
-
