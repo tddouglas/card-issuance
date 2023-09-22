@@ -10,26 +10,26 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue"
-import ExistingOrdersGrid from "@/components/existingOrder/ExistingOrdersGrid.vue";
-import type CardOrderItem from "@/types/cardOrderItem";
+import { defineComponent } from 'vue'
+import ExistingOrdersGrid from '@/components/existingOrder/ExistingOrderGrid.vue'
+import type CardOrderItem from '@/types/cardOrderItem'
 
 export default defineComponent({
-	name: "ExistingOrderView",
-	components: {ExistingOrdersGrid},
+	name: 'ExistingOrderView',
+	components: { ExistingOrdersGrid },
 	methods: {},
 	mounted() {
-		this.userOrders = [{
-			numberOfCards: 2,
-			program: "Recruiting"
-		}]
+		this.userOrders = [
+			{
+				numberOfCards: 2,
+				program: 'Recruiting',
+			},
+		]
 	},
 	data() {
 		return {
-			userOrders: [] as CardOrderItem[]
+			userOrders: [] as CardOrderItem[],
 		}
-	}
+	},
 })
 </script>
-
-

@@ -1,5 +1,5 @@
 <template>
-	<div v-if='this.$route.query.success' class="">
+	<div v-if='$route.query.success' class="">
 		<h1 class="font-bold text-3xl mb-4">Order Successfully Submitted</h1>
 		<p>Thank you for placing a card order.</p>
 		<p>

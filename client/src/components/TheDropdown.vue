@@ -36,7 +36,7 @@ export default defineComponent({
 	props: {
 		dropdownOptions: {
 			required: true,
-			type: Array<String>,
+			type: Array<string>,
 		}
 	},
 	methods: {

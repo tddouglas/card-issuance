@@ -1,5 +1,8 @@
 <template>
-	<div class="my-8 text-xl">Please Provide Event Details Below</div>
+	<div class="mb-8 text-xl">
+		Please Provide {{ newCardOrderStore.selectedCountry }}
+		{{ newCardOrderStore.selectedOrderType }} Event Details Below:
+	</div>
 	<div class="grid grid-cols-3">
 		<span class="pt-1">Number of Cards:</span>
 		<the-input-number
@@ -15,14 +18,12 @@
 			class="h-10 sm:w-72 col-span-2"
 			@set="setEndDate"></the-input-date>
 	</div>
-	<the-dropdown
-		:dropdown-options="cardOrderImageOptions"
-		class="my-8"
-		@set="setImage">
-		<template #dropdown-text>Select Image to use on card</template>
-	</the-dropdown>
-	<div v-if="orderEventDetailsValid()">
-		<the-button @click="submitOrder">
+	<new-order-card-art-selection></new-order-card-art-selection>
+	<div v-if="orderEventDetailsValid()" class="mt-8">
+		<the-button
+			reference="submitButton"
+			:focus="focusSubmit"
+			@click="submitOrder">
 			<template #button-text>Confirm Card Order</template>
 		</the-button>
 	</div>
@@ -32,14 +33,19 @@
 import { defineComponent } from 'vue'
 import TheInputNumber from '@/components/TheInputNumber.vue'
 import TheInputDate from '@/components/TheInputDate.vue'
-import TheDropdown from '@/components/TheDropdown.vue'
+import TheButton from '@/components/TheButton.vue'
+import NewOrderCardArtSelection from '@/components/newOrder/newOrderCardArtSelection.vue'
 import { mapStores } from 'pinia'
 import { newCardOrderStore } from '@/stores/newCardOrder'
-import TheButton from '@/components/TheButton.vue'
 
 export default defineComponent({
 	name: 'NewOrderEventDetails',
-	components: { TheButton, TheDropdown, TheInputNumber, TheInputDate },
+	components: {
+		TheButton,
+		TheInputNumber,
+		TheInputDate,
+		NewOrderCardArtSelection,
+	},
 	computed: {
 		...mapStores(newCardOrderStore),
 	},
@@ -47,13 +53,12 @@ export default defineComponent({
 		orderEventDetailsValid(): boolean {
 			return (
 				this.newCardOrderStore.numberOfCards > 0 &&
-				this.newCardOrderStore.eventStartDate &&
-				this.newCardOrderStore.eventEndDate &&
-				this.newCardOrderStore.selectedImage
+				this.newCardOrderStore.eventStartDate.length > 0 &&
+				this.newCardOrderStore.eventEndDate.length > 0 &&
+				this.newCardOrderStore.selectedImage.length > 0
 			)
 		},
 		setNumberOfCards(numberOfCards: number) {
-			console.log('setting numOfCards', numberOfCards)
 			this.newCardOrderStore.numberOfCards = numberOfCards
 		},
 		setStartDate(eventStartDate: string) {
@@ -61,9 +66,6 @@ export default defineComponent({
 		},
 		setEndDate(eventEndDate: string) {
 			this.newCardOrderStore.eventEndDate = eventEndDate
-		},
-		setImage(image: string) {
-			this.newCardOrderStore.selectedImage = image
 		},
 		async submitOrder() {
 			try {
@@ -76,7 +78,7 @@ export default defineComponent({
 					console.log('Order successfully submitted')
 					this.$router.push({
 						path: '/orderSubmissionResult',
-						query: { success: true },
+						query: { success: 'true' },
 					})
 				}
 			} catch (e) {
@@ -84,10 +86,12 @@ export default defineComponent({
 			}
 		},
 	},
+	mounted() {
+		this.newCardOrderStore.resetOrderDetails()
+	},
 	data() {
 		return {
-			// TODO: Surface proper Image options. Ideally render in browser
-			cardOrderImageOptions: ['IM1236178924612012', 'IM87566171273489'],
+			focusSubmit: false,
 		}
 	},
 })

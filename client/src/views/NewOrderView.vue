@@ -44,7 +44,6 @@ import { defineComponent } from 'vue'
 import TheDropdown from '@/components/TheDropdown.vue'
 import TheButton from '@/components/TheButton.vue'
 import TheGrid from '@/components/TheGrid.vue'
-import NewOrderEventDetails from '@/components/newOrder/newOrderEventDetails.vue'
 import { mapStores } from 'pinia'
 import { newCardOrderStore } from '@/stores/newCardOrder'
 
@@ -70,6 +69,9 @@ export default defineComponent({
 				this.newCardOrderStore.selectedOrderType
 			)
 		},
+	},
+	mounted() {
+		this.newCardOrderStore.resetMainOrder()
 	},
 	data() {
 		return {

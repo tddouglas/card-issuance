@@ -34,7 +34,7 @@ export default defineComponent({
 	},
 	data() {
 		return {
-			inputNumber: null as Number,
+			inputNumber: null as Number | null,
 		}
 	},
 })

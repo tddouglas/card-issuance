@@ -6,8 +6,8 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr v-for="row in rows" :key="row">
-			<td v-for="cell in row" :key="cell" class="pt-2">{{ cell }}</td>
+		<tr v-for="(row, index) in rows" :key="index">
+			<td v-for="cell in row" :key="cell" class="pt-2 min-w-[150px]">{{ cell }}</td>
 		</tr>
 		</tbody>
 	</table>
@@ -21,11 +21,11 @@ export default defineComponent({
 	props: {
 		headers: {
 			required: true,
-			type: Array<String>
+			type: Array<string>
 		},
 		rows: {
 			required: true,
-			type: Array<Array<String>>
+			type: Array<Array<string>>
 		}
 	},
 	data() {
