@@ -46,13 +46,14 @@ class OrderCreate(OrderBase):
 
 
 class UsecaseBase(BaseModel):
-    country: str
+    issuing_country: str
     event_type: str
-    spending_limit: int
+    # spending_limit: int
     allowed_countries: str
     allowed_mccs: str
     max_daily_spend: int
     max_amount_per_transaction: int
+    currency: str
     payment_instrument_group_id: str
 
 

@@ -2,3 +2,5 @@ fastapi[all]
 black
 sqlalchemy
 psycopg2
+python-dotenv
+requests

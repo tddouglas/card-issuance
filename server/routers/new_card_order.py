@@ -1,15 +1,12 @@
+import json
+import os
+import requests
+import time
+
+from copy import deepcopy
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, validator
-
-# TODO: Set Username/Password via .env file
-# Live TestBalancePlatform
-WEBSERVICE_USERNAME = ""
-WEBSERVICE_PASSWORD = ""
-
-# TEST TestBalancePlatformUS credentials
-TEST_WEBSERVICE_USERNAME = ""
-TEST_WEBSERVICE_PASSWORD = ""
 
 # LIVE URLs
 BASE_URL = "https://balanceplatform-api-live.adyen.com/bcl/v2/"
@@ -83,19 +80,21 @@ def create_card_order(request: OrderRequest):
         }
     }
 
-    test_creds = (TEST_WEBSERVICE_USERNAME, TEST_WEBSERVICE_PASSWORD)
+    test_creds = (os.getenv('TEST_WEBSERVICE_USERNAME'), os.getenv('TEST_WEBSERVICE_PASSWORD'))
     test_url = TEST_BASE_URL + "paymentInstruments"
 
-    live_creds = (WEBSERVICE_USERNAME, WEBSERVICE_PASSWORD)
+    live_creds = (os.getenv('WEBSERVICE_USERNAME'), os.getenv('WEBSERVICE_PASSWORD'))
     live_url = BASE_URL + "paymentInstruments"
 
+    print("Did this work setting env")
+    print(live_creds)
 
     for i in range(0, NR_OF_CARDS):
         time.sleep(0.005)
-        piRequest_unique = deepcopy(piRequest_live)
-        piRequest_unique["card"]["cardholderName"] = piRequest_live["card"]["cardholderName"] + str(i)
+        pi_request_unique = deepcopy(piRequest)
+        pi_request_unique["card"]["cardholderName"] = piRequest["card"]["cardholderName"] + str(i)
 
-        r = requests.post(live_url, json=piRequest_unique, auth=live_creds)
+        r = requests.post(live_url, json=pi_request_unique, auth=live_creds)
         print("Response is\n{}".format(r.json()))
         response_dict = json.loads(r.text)
 
@@ -104,7 +103,7 @@ def create_card_order(request: OrderRequest):
                response_dict["card"]["lastFour"], response_dict["card"]["expiration"]["month"],
                response_dict["card"]["expiration"]["year"], response_dict["card"]["cardholderName"]]
         print(row)
-        
+
     return JSONResponse(
         status_code=201,
         content={"order_id": request.id, "message": "Order created"},

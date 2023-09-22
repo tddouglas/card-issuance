@@ -37,14 +37,15 @@ class Card(Base):
 class Usecase(Base):
     __tablename__ = "approved_usecases"
 
-    id = Column(Integer, primary_key=True, index=True)
-    country = Column(String, index=True)
+    id = Column(Integer, primary_key=True, autoincrement=True, index=True)
+    issuing_country = Column(String, index=True)
     event_type = Column(String, index=True)
-    spending_limit = Column(Integer)
+    # spending_limit = Column(Integer)
     allowed_countries = Column(String)
     allowed_mccs = Column(String)
     max_daily_spend = Column(Integer)
     max_amount_per_transaction = Column(Integer)
+    currency = Column(String)
     payment_instrument_group_id = Column(String)
 
     card_orders = relationship("Order", back_populates="approved_usecase")

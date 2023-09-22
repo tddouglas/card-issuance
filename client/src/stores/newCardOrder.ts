@@ -9,6 +9,7 @@ export const newCardOrderStore = defineStore('newCardOrder', {
 			eventStartDate: '',
 			eventEndDate: '',
 			selectedImage: '',
+			selectedAddress: ''
 		}
 	},
 	getters: {

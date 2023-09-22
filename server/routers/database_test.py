@@ -9,6 +9,7 @@ from . import models, schemas, crud
 
 router = APIRouter()
 
+# models.Base.metadata.drop_all(bind=engine)  # Use to refresh schema after changes
 models.Base.metadata.create_all(bind=engine)
 
 

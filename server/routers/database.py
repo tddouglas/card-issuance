@@ -1,15 +1,14 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-# todo make this a environment variable
-# SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db" <-- use this line for sqlite db
-SQLALCHEMY_DATABASE_URL = "postgresql://sebastianl@127.0.0.1/sebastianl"
+print(f"Starting up DB - {os.getenv('SQLLLIGHT_DATABASE_URL')}")
 
 # connect_args only needed for sqlite
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL
-    #  SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}<--exchange previous line by this for sqlite db
+    # os.getenv('SQLALCHEMY_DATABASE_URL')  # SQL Alchemy
+    os.getenv('SQLLLIGHT_DATABASE_URL'), connect_args={"check_same_thread": False}  # SQL Light DB
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

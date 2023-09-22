@@ -74,13 +74,14 @@ def create_logo(db: Session, logo: schemas.LogoCreate):
 
 def create_usecase(db: Session, usecase: schemas.UsecaseCreate):
     db_usecase = models.Usecase(
-        country=usecase.country,
+        issuing_country=usecase.issuing_country,
         event_type=usecase.event_type,
-        spending_limit=usecase.spending_limit,
+        # spending_limit=usecase.spending_limit,
         allowed_countries=usecase.allowed_countries,
         allowed_mccs=usecase.allowed_mccs,
         max_daily_spend=usecase.max_daily_spend,
         max_amount_per_transaction=usecase.max_amount_per_transaction,
+        currency=usecase.currency,
         payment_instrument_group_id=usecase.payment_instrument_group_id)
     db.add(db_usecase)
     db.commit()
