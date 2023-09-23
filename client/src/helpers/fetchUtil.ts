@@ -1,21 +1,46 @@
 const BACKEND_URL = 'http://localhost:8000'
 
-async function getBackend(queryString: string) {
-	const url = `${BACKEND_URL}/${queryString}`
-	const res = await fetch(url, {
-		method: 'GET',
-		mode: 'cors',
-	})
-	return await res.json()
+async function getBackend(path: string) {
+	try {
+		const url = `${BACKEND_URL}/${path}`
+		const res = await fetch(url, {
+			method: 'GET',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+
+		if (res.ok) {
+			return await res.json()
+		} else {
+			throw new Error(`HTTP error! status: ${res.status}`)
+		}
+	} catch (error) {
+		console.error(error)
+	}
 }
 
-async function postBackend(body: object) {
-	const res = await fetch(BACKEND_URL, {
-		method: 'POST',
-		body: JSON.stringify(body),
-		mode: 'cors',
-	})
-	return await res.json()
+async function postBackend(path: string, body: object) {
+	try {
+		const url = `${BACKEND_URL}/${path}`
+		const res = await fetch(url, {
+			method: 'POST',
+			body: JSON.stringify(body),
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+
+		if (res.ok) {
+			return await res.json()
+		} else {
+			throw new Error(`HTTP error! status: ${res.status}`)
+		}
+	} catch (error) {
+		console.error(error)
+	}
 }
 
 export { getBackend, postBackend }

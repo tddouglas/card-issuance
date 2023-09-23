@@ -23,7 +23,6 @@ export default defineComponent({
 	},
 	mounted() {
 		if (this.focus) {
-			// TODO: Figure out why this isn't working
 			// @ts-ignore
 			this.$refs[this.reference].focus()
 		}

@@ -63,6 +63,9 @@ export default defineComponent({
 			this.$router.push('/newCardOrderDetails')
 		},
 		setCountry(country: string) {
+			if (this.newCardOrderStore.selectedCountry != country) {
+				this.newCardOrderStore.selectedOrderType = '' // Reset selectedOrderType if changing country
+			}
 			this.newCardOrderStore.selectedCountry = country
 		},
 		setOrderType(orderType: string) {

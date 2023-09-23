@@ -18,8 +18,8 @@
 			class="h-10 sm:w-72 col-span-2"
 			@set="setEndDate"></the-input-date>
 	</div>
-	<new-order-card-art-selection></new-order-card-art-selection>
 	<new-order-shipping-address-selection></new-order-shipping-address-selection>
+	<new-order-card-art-selection></new-order-card-art-selection>
 	<div v-if="newCardOrderStore.isOrderEventDetailsValid" class="mt-8">
 		<the-button
 			reference="submitButton"
@@ -34,11 +34,12 @@
 import { defineComponent } from 'vue'
 import TheInputNumber from '@/components/TheInputNumber.vue'
 import TheInputDate from '@/components/TheInputDate.vue'
-import TheButton from '@/components/TheButton.vue'
+import NewOrderShippingAddressSelection from '@/components/newOrder/newOrderShippingAddressSelection.vue'
 import NewOrderCardArtSelection from '@/components/newOrder/newOrderCardArtSelection.vue'
+import TheButton from '@/components/TheButton.vue'
 import { mapStores } from 'pinia'
 import { newCardOrderStore } from '@/stores/newCardOrder'
-import NewOrderShippingAddressSelection from '@/components/newOrder/newOrderShippingAddressSelection.vue'
+import { postBackend } from '@/helpers/fetchUtil'
 
 export default defineComponent({
 	name: 'NewOrderEventDetails',
@@ -52,6 +53,13 @@ export default defineComponent({
 	computed: {
 		...mapStores(newCardOrderStore),
 	},
+	watch: {
+		'newCardOrderStore.isOrderEventDetailsValid'() {
+			if (this.newCardOrderStore.isOrderEventDetailsValid) {
+				this.focusSubmit = true
+			}
+		},
+	},
 	methods: {
 		setNumberOfCards(numberOfCards: number) {
 			this.newCardOrderStore.numberOfCards = numberOfCards
@@ -63,21 +71,15 @@ export default defineComponent({
 			this.newCardOrderStore.eventEndDate = eventEndDate
 		},
 		async submitOrder() {
-			try {
-				// TODO: Tied to backend to actually submit order
-				// const res = await fetch('http://localhost:8000', {
-				// 	method: 'POST',
-				// 	body: JSON.stringify({}),
-				// })
-				if (true) {
-					console.log('Order successfully submitted')
-					this.$router.push({
-						path: '/orderSubmissionResult',
-						query: { success: 'true' },
-					})
-				}
-			} catch (e) {
-				console.error(e)
+			// TODO: Add spinner while waiting for submit
+			const body = this.newCardOrderStore.getNewCardOrderObject
+			const res = await postBackend('orders', body)
+			if (res.ok) {
+				console.log('Order successfully submitted')
+				this.$router.push({
+					path: '/orderSubmissionResult',
+					query: { success: 'true' },
+				})
 			}
 		},
 	},

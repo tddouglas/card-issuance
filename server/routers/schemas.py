@@ -1,7 +1,6 @@
-import datetime
-
+from datetime import date
 from pydantic import BaseModel
-from typing import List
+from typing import List, Union
 
 
 class CardBase(BaseModel):
@@ -26,15 +25,15 @@ class OrderBase(BaseModel):
     requesting_user: str
     number_of_cards: int
     approved_usecase_id: int
-    event_start_date: datetime.datetime
-    event_end_date: datetime.datetime
+    event_start_date: date
+    event_end_date: date
     card_shipping_address: str
-    shipping_status: str
     logo_id: int
 
 
 class Order(OrderBase):
     id: int
+    shipping_status: Union[str, None]
     cards: List[Card] = []
 
     class Config:

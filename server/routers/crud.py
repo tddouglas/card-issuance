@@ -56,7 +56,7 @@ def create_order(db: Session, order: schemas.OrderCreate):
         event_start_date=order.event_start_date,
         event_end_date=order.event_end_date,
         card_shipping_address=order.card_shipping_address,
-        shipping_status=order.shipping_status,
+        shipping_status=None,
         logo_id=order.logo_id)
     db.add(db_order)
     db.commit()

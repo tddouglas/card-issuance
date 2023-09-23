@@ -14,7 +14,7 @@ class Order(Base):
     event_start_date = Column(TIMESTAMP)
     event_end_date = Column(TIMESTAMP)
     card_shipping_address = Column(String)
-    shipping_status = Column(String)
+    shipping_status = Column(String, nullable=True)
     logo_id = Column(Integer, ForeignKey("logos.id"))  # todo can we have a logo per order or only per usecase?
 
     approved_usecase = relationship("Usecase", back_populates="card_orders")

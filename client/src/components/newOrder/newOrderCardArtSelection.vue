@@ -1,7 +1,7 @@
 <template>
 	<the-dropdown
 		:dropdown-options="cardOrderImageOptions"
-		class="my-8"
+		class="mb-8"
 		@set="setImage">
 		<template #dropdown-text>Select Image to use on card</template>
 	</the-dropdown>
