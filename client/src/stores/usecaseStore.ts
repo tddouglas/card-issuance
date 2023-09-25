@@ -11,6 +11,9 @@ export const usecaseStore = defineStore('usecase', {
 	actions: {
 		async getApprovedUsecases(): Promise<void> {
 			const res = await getBackend('usecases')
+			if (res) {
+				this.approvedUsecases = res
+			}
 		},
 		getUniqueCountries(): Array<string> {
 			const uniqueList: string[] = []
@@ -37,5 +40,5 @@ export const usecaseStore = defineStore('usecase', {
 			return uniqueList
 		},
 	},
-	persist: true,
+	persist: false,
 })

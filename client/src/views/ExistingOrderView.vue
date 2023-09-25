@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div v-if="userOrders.length > 0">
+		<div v-if="existingCardOrderStore.exisingCardOrders.length > 0">
 			<existing-orders-grid></existing-orders-grid>
 		</div>
 		<div v-else>
@@ -12,23 +12,21 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import ExistingOrdersGrid from '@/components/existingOrder/ExistingOrderGrid.vue'
-import type CardOrderItem from '@/types/cardOrderItem'
+import { mapStores } from 'pinia'
+import { existingCardOrderStore } from '@/stores/existingCardOrderStore'
 
 export default defineComponent({
 	name: 'ExistingOrderView',
 	components: { ExistingOrdersGrid },
+	computed: {
+		...mapStores(existingCardOrderStore),
+	},
 	methods: {},
-	mounted() {
-		this.userOrders = [
-			{
-				numberOfCards: 2,
-				program: 'Recruiting',
-			},
-		]
+	async mounted() {
+		await this.existingCardOrderStore.setAllCardOrders()
 	},
 	data() {
 		return {
-			userOrders: [] as CardOrderItem[],
 		}
 	},
 })

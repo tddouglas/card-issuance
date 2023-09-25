@@ -1,4 +1,6 @@
 import os
+from contextlib import contextmanager
+
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -13,3 +15,17 @@ engine = create_engine(
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
+
+
+@contextmanager
+def SessionManager():
+    db = SessionLocal()
+    try:
+        yield db
+    except:
+        # if we fail somehow rollback the connection
+        print("We somehow failed in a DB operation and auto-rollbacking...")
+        db.rollback()
+        raise
+    finally:
+        db.close()

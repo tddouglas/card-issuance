@@ -2,7 +2,7 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from .database import SessionLocal, engine
-from . import models, schemas, crud
+from . import models, schemas, crud, database
 
 router = APIRouter()
 
@@ -19,9 +19,10 @@ def get_db():
         db.close()
 
 
-@router.post("/orders/", response_model=schemas.Order)
-def create_order(order: schemas.OrderCreate, db: Session = Depends(get_db)):
-    return crud.create_order(db=db, order=order)
+# @router.post("/orders/", response_model=schemas.Order)
+def create_order(order: schemas.OrderCreate):
+    with database.SessionManager() as db:
+        return crud.create_order(db=db, order=order)
 
 
 @router.get("/orders/", response_model=List[schemas.Order])
@@ -38,11 +39,10 @@ def read_order(order_id: int, db: Session = Depends(get_db)):
     return db_order
 
 
-@router.post("/orders/{order_id}/cards/", response_model=schemas.Card)
-def create_card_for_order(
-        order_id: int, card: schemas.CardCreate, db: Session = Depends(get_db)
-):
-    return crud.create_card(db=db, card=card, order_id=order_id)
+# @router.post("/orders/{order_id}/cards/", response_model=schemas.Card)
+def create_card_for_order(order_id: int, card: schemas.CardCreate):
+    with database.SessionManager() as db:
+        return crud.create_card(db=db, card=card, order_id=order_id)
 
 
 @router.get("/orders/{order_id}/cards/", response_model=List[schemas.Card])
@@ -62,7 +62,7 @@ def read_card(card_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/logos/", response_model=schemas.Logo)
-def create_card_for_order(
+def create_logo(
         logo: schemas.LogoCreate, db: Session = Depends(get_db)
 ):
     return crud.create_logo(db=db, logo=logo)

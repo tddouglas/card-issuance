@@ -23,6 +23,7 @@
 	<div v-if="newCardOrderStore.isOrderEventDetailsValid" class="mt-8">
 		<the-button
 			reference="submitButton"
+			:loading="orderSubmitLoading"
 			:focus="focusSubmit"
 			@click="submitOrder">
 			<template #button-text>Confirm Card Order</template>
@@ -71,10 +72,10 @@ export default defineComponent({
 			this.newCardOrderStore.eventEndDate = eventEndDate
 		},
 		async submitOrder() {
-			// TODO: Add spinner while waiting for submit
+			this.orderSubmitLoading = true
 			const body = this.newCardOrderStore.getNewCardOrderObject
-			const res = await postBackend('orders', body)
-			if (res.ok) {
+			const res = await postBackend('new_order', body)
+			if (res) {
 				console.log('Order successfully submitted')
 				this.$router.push({
 					path: '/orderSubmissionResult',
@@ -88,6 +89,7 @@ export default defineComponent({
 	},
 	data() {
 		return {
+			orderSubmitLoading: false,
 			focusSubmit: false,
 		}
 	},

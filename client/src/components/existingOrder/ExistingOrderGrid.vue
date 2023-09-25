@@ -12,7 +12,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="(row, i) in tableRows" :key="i">
+				<tr v-for="(row, i) in existingCardOrderStore.formatExistingCardOrders" :key="i">
 					<td
 						v-for="(cell, index) in row"
 						:key="cell"
@@ -34,12 +34,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from 'vue'
+import { defineComponent } from 'vue'
 import CardOrderStatus from '@/types/cardOrderStatus'
 import EventType from '@/types/eventType'
+import { mapStores } from 'pinia'
+import { existingCardOrderStore } from '@/stores/existingCardOrderStore'
 
 export default defineComponent({
 	name: 'ExistingOrderGrid',
+	computed: {
+		...mapStores(existingCardOrderStore),
+	},
 	data() {
 		return {
 			tableHeaders: [
