@@ -38,7 +38,6 @@ export default defineComponent({
 	},
 	methods: {
 		setImage(image: string) {
-			console.log('setting', image)
 			this.newCardOrderStore.selectedImage = image
 		},
 	},

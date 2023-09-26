@@ -1,6 +1,7 @@
 <template>
 	<button
 		:ref="reference"
+		:disabled='loading'
 		class="bg-adyen-light rounded-lg text-adyen-light-text hover:bg-adyen-grey px-4 py-2 font-semibold">
 		<the-spinner :loading='loading'></the-spinner>
 		<slot name="button-text"></slot>

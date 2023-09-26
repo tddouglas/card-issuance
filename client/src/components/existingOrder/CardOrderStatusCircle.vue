@@ -1,5 +1,7 @@
 <template>
-	<div class="w-3 h-3 rounded-full bg-adyen-light inline-block mr-1"></div>
+	<div
+		class="w-3 h-3 rounded-full inline-block mr-1"
+		:class="cardStatusBackground"></div>
 </template>
 
 <script lang="ts">
@@ -11,6 +13,18 @@ export default defineComponent({
 		radius: {
 			required: true,
 			type: String,
+		},
+		status: {
+			required: true,
+			type: String,
+		},
+	},
+	computed: {
+		cardStatusBackground(): Object {
+			return {
+				'bg-active': this.status == 'Active',
+				'bg-inactive': this.status == 'Inactive',
+			}
 		},
 	},
 	data() {

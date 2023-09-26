@@ -73,26 +73,30 @@ export default defineComponent({
 		},
 		formatRows(): Array<Array<string>> {
 			// TODO: select the proper row. Right now hardcoded to 0
-			const unformattedRow = this.usecaseStore.approvedUsecases[1]
-			const currency = unformattedRow['currency']
-			const maxDailySpend = formatAmount(
-				unformattedRow['max_daily_spend'],
-				currency
-			)
-			const maxPerTransactionAmount = formatAmount(
-				unformattedRow['max_amount_per_transaction'],
-				currency
-			)
-			const allowedCountries = unformattedRow['allowed_countries']
-			const allowedMCCs = unformattedRow['allowed_mccs']
-			return [
-				[
-					maxDailySpend,
-					maxPerTransactionAmount,
-					allowedCountries,
-					allowedMCCs,
-				],
-			]
+			if (this.usecaseStore.approvedUsecases.length > 0) {
+				const unformattedRow = this.usecaseStore.approvedUsecases[1]
+				const currency = unformattedRow['currency']
+				const maxDailySpend = formatAmount(
+					unformattedRow['max_daily_spend'],
+					currency
+				)
+				const maxPerTransactionAmount = formatAmount(
+					unformattedRow['max_amount_per_transaction'],
+					currency
+				)
+				const allowedCountries = unformattedRow['allowed_countries']
+				const allowedMCCs = unformattedRow['allowed_mccs']
+				return [
+					[
+						maxDailySpend,
+						maxPerTransactionAmount,
+						allowedCountries,
+						allowedMCCs,
+					],
+				]
+			} else {
+				return [[]]
+			}
 		},
 	},
 	async mounted() {

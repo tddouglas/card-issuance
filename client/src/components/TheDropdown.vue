@@ -2,7 +2,7 @@
 	<div>
 		<div
 			@click="toggleDropdown"
-			class="w-96 h-12 rounded bg-adyen-light text-adyen-light-text px-2 border-2 border-adyen-white cursor-pointer flex hover:border-adyen-grey mb-2"
+			class="w-96 h-12 rounded bg-adyen-light text-adyen-light-text px-2 border-2 border-adyen-light cursor-pointer flex hover:border-adyen-grey mb-2"
 			:class="{ 'border-green hover:border-green': showOptions }">
 			<span
 				v-if="!selected"

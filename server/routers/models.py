@@ -15,6 +15,7 @@ class Order(Base):
     event_end_date = Column(TIMESTAMP)
     card_shipping_address = Column(String)
     shipping_status = Column(String, nullable=True)
+    card_order_id = Column(String, nullable=True)  # Adyen card order ID
     logo_id = Column(Integer, ForeignKey("logos.id"))  # todo can we have a logo per order or only per usecase?
 
     approved_usecase = relationship("Usecase", back_populates="card_orders")

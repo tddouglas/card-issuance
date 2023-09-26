@@ -21,7 +21,6 @@ export default defineComponent({
 	},
 	methods: {
 		setAddress(address: string) {
-			console.log('setting', address)
 			this.newCardOrderStore.selectedAddress = address
 		},
 	},

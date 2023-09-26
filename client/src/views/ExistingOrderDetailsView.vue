@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div v-if="userOrders.length > 0">
+		<div v-if="!existingCardOrderStore.isSelectedOrderEmpty">
 			<table class="table-auto">
 				<thead>
 					<tr class="border-b">
@@ -13,14 +13,19 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="(row, index) in tableRows" :key="index">
+					<tr
+						v-for="(
+							row, index
+						) in existingCardOrderStore.formatSelectedOrderCards"
+						:key="index">
 						<td
-							v-for="cell in row"
+							v-for="(cell, index) in row"
 							:key="cell"
-							class="pt-2 min-w-[150px]">
+							class="pt-2 min-w-[150px] pr-8">
 							<card-order-status-circle
-								v-if="cell == 'Shipped'"
-								radius="20">
+								v-if="index == 0"
+								radius="20"
+								:status="cell">
 							</card-order-status-circle>
 							{{ cell }}
 						</td>
@@ -36,56 +41,26 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import type CardOrderItem from '@/types/cardOrderItem'
-import CardOrderStatus from '@/types/cardOrderStatus'
 import CardOrderStatusCircle from '@/components/existingOrder/CardOrderStatusCircle.vue'
+import { mapStores } from 'pinia'
+import { existingCardOrderStore } from '@/stores/existingCardOrderStore'
 
 export default defineComponent({
 	name: 'ExistingOrderDetailsView',
 	components: { CardOrderStatusCircle },
-	methods: {},
+	computed: {
+		...mapStores(existingCardOrderStore),
+	},
 	mounted() {
-		this.userOrders = [
-			{
-				numberOfCards: 2,
-				program: 'Recruiting',
-			},
-		]
+		const orderId = this.$route.params.id as string
+		this.existingCardOrderStore.setSelectedOrderCards(orderId)
 	},
 	data() {
 		return {
-			userOrders: [] as CardOrderItem[],
 			tableHeaders: [
 				'Card Status',
+				'Payment Instrument ID',
 				'Cardholder Name',
-				'Event Start',
-				'Event End',
-			],
-			tableRows: [
-				[
-					CardOrderStatus.SHIPPED,
-					'NA Recruiting0',
-					'05-10-2023',
-					'05-11-2023',
-				],
-				[
-					CardOrderStatus.SHIPPED,
-					'NA Recruiting1',
-					'05-10-2023',
-					'05-11-2023',
-				],
-				[
-					CardOrderStatus.SHIPPED,
-					'NA Recruiting2',
-					'05-10-2023',
-					'05-11-2023',
-				],
-				[
-					CardOrderStatus.SHIPPED,
-					'NA Recruiting3',
-					'05-10-2023',
-					'05-11-2023',
-				],
 			],
 		}
 	},

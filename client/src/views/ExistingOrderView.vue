@@ -23,7 +23,7 @@ export default defineComponent({
 	},
 	methods: {},
 	async mounted() {
-		await this.existingCardOrderStore.setAllCardOrders()
+		await this.existingCardOrderStore.setExistingCardOrders()
 	},
 	data() {
 		return {

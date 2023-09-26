@@ -63,10 +63,10 @@ def create_card_order(order: schemas.OrderCreate):
                               order_id=create_order_res.id)
             create_card_for_order(create_order_res.id, card)
 
-            return JSONResponse(
-                status_code=201,
-                content={"order_id": create_order_res.id, "message": "Order created"},
-            )
+        return JSONResponse(
+            status_code=201,
+            content={"order_id": create_order_res.id, "message": "Order created"},
+        )
 
     return JSONResponse(
         status_code=500,

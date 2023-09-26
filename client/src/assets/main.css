@@ -9,3 +9,13 @@
         margin: 0;
     }
 }
+
+@layer components {
+    .bg-inactive {
+        @apply bg-adyen-grey
+    }
+
+    .bg-active {
+        @apply bg-adyen-green
+    }
+}

@@ -10,6 +10,7 @@ export const usecaseStore = defineStore('usecase', {
 	},
 	actions: {
 		async getApprovedUsecases(): Promise<void> {
+			console.log("Getting approve usecases")
 			const res = await getBackend('usecases')
 			if (res) {
 				this.approvedUsecases = res

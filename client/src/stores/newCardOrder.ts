@@ -32,7 +32,7 @@ export const newCardOrderStore = defineStore('newCardOrder', {
 			return {
 				'requesting_user': '',
 				'number_of_cards': this.numberOfCards,
-				'approved_usecase_id': 0, // Store approvedUsecaseId in store
+				'approved_usecase_id': 1, // TODO: Store approvedUsecaseId in store
 				'event_start_date': this.eventStartDate,
 				'event_end_date': this.eventEndDate,
 				'card_shipping_address': this.selectedAddress,

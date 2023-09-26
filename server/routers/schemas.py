@@ -34,7 +34,7 @@ class OrderBase(BaseModel):
 class Order(OrderBase):
     id: int
     shipping_status: Union[str, None]
-    cards: List[Card] = []
+    card_order_id: Union[str, None]
 
     class Config:
         orm_mode = True
